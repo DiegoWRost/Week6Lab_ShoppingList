@@ -52,8 +52,8 @@ public class ShoppingListServlet extends HttpServlet {
         String registerURL = "/WEB-INF/register.jsp";
         String shoppingURL = "/WEB-INF/shoppinglist.jsp";
         
-        String item;
-//        String listItem;
+        String item = request.getParameter("item");
+        Boolean shopping = true;
 
         if (action != null) {
             switch (action) {
@@ -63,28 +63,26 @@ public class ShoppingListServlet extends HttpServlet {
                         
                         session.setAttribute("username", userField);
                         session.setAttribute("items", items);
-                        getServletContext().getRequestDispatcher(shoppingURL).forward(request, response);
                     } else {
                         request.setAttribute("message", "Error: Username cannot be empty");
-                        getServletContext().getRequestDispatcher(registerURL).forward(request, response);
                     }
                     break;
                 case "add":
-                    item = request.getParameter("item");
                     if (item != null && !item.isEmpty()) {
                         items.add(item);
                     } else {
                         request.setAttribute("message", "Error: Item cannot be empty");
                     }
-                    getServletContext().getRequestDispatcher(shoppingURL).forward(request, response);
                     break;
+                case "delete":
+                    items.remove(item);
             }
-        
-//        if (action != null && action.equals("delete")) {
-//            listItem
-//            getServletContext().getRequestDispatcher(shoppingURL).forward(request, response);
-//        }
         }
         
+        if (shopping) {
+            getServletContext().getRequestDispatcher(shoppingURL).forward(request, response);
+        } else {
+            getServletContext().getRequestDispatcher(registerURL).forward(request, response);
+        }
     }
 }
