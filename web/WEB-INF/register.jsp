@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -19,7 +20,8 @@
             <input type="hidden" name="action" value="register">
             <input type="submit" value="Register">
         </form>
-            
-        <p>${message}</p>
+        <c:if test="${error}">
+            <p>Error: Username cannot be empty</p>
+        </c:if>
     </body>
 </html>

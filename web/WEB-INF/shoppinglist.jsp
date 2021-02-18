@@ -20,7 +20,7 @@
         
         <form action="" method="post">
             <h2>Add Item</h2>
-            <input type="text" name="item"><input type="submit" value="Add Item">
+            <input type="text" name="item"> <input type="submit" value="Add Item">
             <input type="hidden" name="action" value="add">
         </form>
         
@@ -34,7 +34,9 @@
             <input type="hidden" name="action" value="delete">
         </form>
         
-        <p>${message}</p>
-        
+        <c:if test="${error}">
+            <p>Error: Item cannot be empty</p>
+        </c:if>
+            
     </body>
 </html>

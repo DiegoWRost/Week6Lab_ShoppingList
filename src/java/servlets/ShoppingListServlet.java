@@ -21,7 +21,6 @@ public class ShoppingListServlet extends HttpServlet {
         
         HttpSession session = request.getSession();
         String action = request.getParameter("action");
-        System.out.println(action); // FOR TESTING
         String username = (String) session.getAttribute("username");
         
         String registerURL = "/WEB-INF/register.jsp";
@@ -64,14 +63,15 @@ public class ShoppingListServlet extends HttpServlet {
                         session.setAttribute("username", userField);
                         session.setAttribute("items", items);
                     } else {
-                        request.setAttribute("message", "Error: Username cannot be empty");
+                        shopping = false;
+                        request.setAttribute("error", "true");
                     }
                     break;
                 case "add":
                     if (item != null && !item.isEmpty()) {
                         items.add(item);
                     } else {
-                        request.setAttribute("message", "Error: Item cannot be empty");
+                        request.setAttribute("error", "true");
                     }
                     break;
                 case "delete":
