@@ -15,7 +15,7 @@
     <body>
         
         <h1>Shopping List</h1>
-        <p>Hello ${username}</p>
+        <p>Hello <c:out value="${username}"/></p>
         <p><a href="ShoppingList?action=logout">Logout</a></p>
         
         <form action="" method="post">
@@ -25,11 +25,19 @@
         </form>
         
         <form action="" method="post">
-            <ul>
-            <c:forEach var="item" items="${items}">
-                <li><input type="radio" name="item" value="<c:out value='${item}'/>"><c:out value="${item}"/></li>
-            </c:forEach>
-            </ul>
+            <c:choose>
+                <c:when test="${items.size() == 0}">
+                    <p>No items currently in your list</p>
+                </c:when>
+                <c:otherwise>
+                    <ul style="list-style-type: none; padding: 0; margin: 5px;">
+                        <c:forEach var="item" items="${items}">
+                            <li style="padding: 3px;"><input type="radio" name="item" value="<c:out value='${item}'/>"><c:out value="${item}"/></li>
+                        </c:forEach>
+                    </ul>
+                </c:otherwise>
+            </c:choose>
+            
             <input type="submit" value="Delete">
             <input type="hidden" name="action" value="delete">
         </form>
